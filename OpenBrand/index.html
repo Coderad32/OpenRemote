@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Open Brand is an open project for people building ideas together through open source, contribution, and practical support.">
+  <title>Open Brand — Build in the Open</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f7f2;
+      --surface: #ffffff;
+      --surface-2: #ecece5;
+      --text: #151515;
+      --muted: #5d5d58;
+      --line: #d8d8d0;
+      --accent: #185cff;
+      --accent-contrast: #ffffff;
+      --focus: #ff8a00;
+      --shadow: 0 12px 35px rgba(0,0,0,.07);
+      --radius: 18px;
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #10110f;
+      --surface: #191b18;
+      --surface-2: #252822;
+      --text: #f4f5ef;
+      --muted: #b9bbb3;
+      --line: #373a34;
+      --accent: #82a7ff;
+      --accent-contrast: #0e1422;
+      --focus: #ffb65c;
+      --shadow: 0 12px 35px rgba(0,0,0,.28);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 4px;
+    }
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -5rem;
+      padding: .7rem 1rem;
+      background: var(--text);
+      color: var(--bg);
+      z-index: 100;
+      border-radius: 10px;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    .wrap { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: color-mix(in srgb, var(--bg) 90%, transparent);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      font-weight: 800;
+      letter-spacing: -.04em;
+      text-decoration: none;
+      font-size: 1.15rem;
+    }
+    .navlinks { display: flex; gap: 1.1rem; align-items: center; }
+    .navlinks a { text-decoration: none; color: var(--muted); font-weight: 600; }
+    .navlinks a:hover { color: var(--text); }
+    .theme {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 999px;
+      padding: .55rem .8rem;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    main { overflow: hidden; }
+    .hero {
+      padding: 8rem 0 6rem;
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 4rem;
+      align-items: end;
+    }
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .78rem;
+    }
+    h1 {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      line-height: .95;
+      letter-spacing: -.07em;
+      margin: .8rem 0 1.4rem;
+      max-width: 850px;
+    }
+    h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -.045em;
+      margin: 0 0 1rem;
+    }
+    h3 { line-height: 1.2; margin-top: 0; }
+    .lead {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      color: var(--muted);
+      max-width: 720px;
+    }
+    .actions { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1.8rem; }
+    .button {
+      display: inline-block;
+      padding: .85rem 1.1rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+    .button.primary {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+    .manifesto {
+      border-left: 3px solid var(--accent);
+      padding-left: 1.4rem;
+      color: var(--muted);
+    }
+
+    section { padding: 5.5rem 0; border-top: 1px solid var(--line); }
+    .section-intro { max-width: 720px; margin-bottom: 2.2rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .number {
+      display: inline-grid;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: var(--surface-2);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .role-list { display: grid; gap: .7rem; }
+    .role {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    .role span { color: var(--muted); text-align: right; }
+
+    .cta {
+      background: var(--text);
+      color: var(--bg);
+      border-radius: 28px;
+      padding: clamp(2rem, 5vw, 4rem);
+    }
+    .cta p { color: color-mix(in srgb, var(--bg) 70%, var(--text)); }
+    .cta .button { background: var(--bg); color: var(--text); border-color: var(--bg); }
+
+    footer { padding: 2rem 0 4rem; color: var(--muted); }
+    .footer-row { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    small { color: var(--muted); }
+
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; padding-top: 5rem; gap: 2rem; }
+      .grid { grid-template-columns: 1fr; }
+      .navlinks a { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header>
+    <div class="wrap">
+      <nav aria-label="Primary navigation">
+        <a class="brand" href="#" aria-label="Open Brand home">OPEN / BRAND</a>
+        <div class="navlinks">
+          <a href="#about">About</a>
+          <a href="#contribute">Contribute</a>
+          <a href="#roles">Roles</a>
+          <a href="#accessibility">Accessibility</a>
+        </div>
+        <button class="theme" id="themeToggle" type="button" aria-pressed="false">
+          <span aria-hidden="true">◐</span> Dark mode
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <div class="eyebrow">An open project in progress</div>
+          <h1 id="hero-title">Build the company you want to see.</h1>
+          <p class="lead">
+            Open Brand is a simple home for ideas, experiments, open-source work,
+            and the people who help an open project become something real.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#contribute">Start contributing</a>
+            <a class="button" href="#about">Explore the idea</a>
+          </div>
+        </div>
+        <p class="manifesto">
+          We are building in public, learning as we go, and leaving room for
+          people to shape the direction. Code is one contribution. Research,
+          design, documentation, community, testing, operations, and thoughtful
+          criticism matter too.
+        </p>
+      </section>
+
+      <section id="about" aria-labelledby="about-title">
+        <div class="section-intro">
+          <div class="eyebrow">The idea</div>
+          <h2 id="about-title">Open by default. Useful by design.</h2>
+          <p class="lead">
+            The project is a framework for turning an emerging brand into a
+            shared, understandable, and extensible project. The goal is not to
+            have every answer today. The goal is to make it easy to discover
+            the questions, contribute an answer, and improve what comes next.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="number">01</div>
+            <h3>Open source</h3>
+            <p>Share code, prototypes, documentation, research, and reusable building blocks so others can inspect, adapt, and improve them.</p>
+          </article>
+          <article class="card">
+            <div class="number">02</div>
+            <h3>Open ideas</h3>
+            <p>Keep the roadmap legible. Explain what is being explored, what is uncertain, and where outside perspectives can change the plan.</p>
+          </article>
+          <article class="card">
+            <div class="number">03</div>
+            <h3>Open participation</h3>
+            <p>Make contribution possible at different levels, from a small documentation fix to leading a new project area.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="contribute" aria-labelledby="contribute-title">
+        <div class="section-intro">
+          <div class="eyebrow">Contribution</div>
+          <h2 id="contribute-title">There is more than one way to help.</h2>
+          <p class="lead">A healthy open project needs people with different skills and different amounts of time.</p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <h3>Build</h3>
+            <p>Prototype features, fix bugs, improve tooling, create integrations, and make the project easier to run.</p>
+          </article>
+          <article class="card">
+            <h3>Explain</h3>
+            <p>Write guides, improve onboarding, document decisions, create examples, and turn complexity into understandable language.</p>
+          </article>
+          <article class="card">
+            <h3>Support</h3>
+            <p>Welcome newcomers, answer questions, test releases, organize discussions, and help maintain a constructive community.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="roles" aria-labelledby="roles-title">
+        <div class="section-intro">
+          <div class="eyebrow">Support roles</div>
+          <h2 id="roles-title">Help the open project take shape.</h2>
+          <p class="lead">These are starting points, not job titles. One person can contribute in several ways.</p>
+        </div>
+
+        <div class="role-list" role="list">
+          <div class="role" role="listitem"><strong>Contributor</strong><span>Code, docs, design, research</span></div>
+          <div class="role" role="listitem"><strong>Maintainer</strong><span>Review, releases, project health</span></div>
+          <div class="role" role="listitem"><strong>Community host</strong><span>Questions, conversations, onboarding</span></div>
+          <div class="role" role="listitem"><strong>Project steward</strong><span>Direction, priorities, coordination</span></div>
+        </div>
+      </section>
+
+      <section id="accessibility" aria-labelledby="accessibility-title">
+        <div class="section-intro">
+          <div class="eyebrow">Accessibility</div>
+          <h2 id="accessibility-title">Design for more people from the start.</h2>
+          <p class="lead">
+            This starter site uses semantic HTML, keyboard-accessible controls,
+            visible focus styles, a skip link, responsive layout, readable
+            contrast, and a reduced-motion preference.
+          </p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>Content</h3>
+            <p>Use plain language, descriptive headings, meaningful link text, alt text for informative images, and captions/transcripts for media.</p>
+          </article>
+          <article class="card">
+            <h3>Interaction</h3>
+            <p>Keep controls keyboard accessible, provide visible focus, use real buttons and links, and do not rely on color alone to communicate meaning.</p>
+          </article>
+          <article class="card">
+            <h3>Testing</h3>
+            <p>Test with keyboard-only navigation, browser zoom, high contrast or forced-colors modes, screen readers, and users with different access needs.</p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-label="Call to action">
+        <div class="cta">
+          <div class="eyebrow">Next step</div>
+          <h2>Bring an idea. Make it clearer. Build something open.</h2>
+          <p>Replace this placeholder with your GitHub repository, project board, community forum, or contact point when you are ready.</p>
+          <a class="button" href="#about">Learn about Open Brand</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div><strong>OPEN / BRAND</strong><br><small>A simple starting point for an open project.</small></div>
+      <small>© 2026 Open Brand · Built to be adapted - Made with TLC 💖 @coderad32 | All Rights Reserved.</small>
+    </div>
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+    const button = document.getElementById("themeToggle");
+    const saved = localStorage.getItem("theme");
+    const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    function setTheme(theme) {
+      const dark = theme === "dark";
+      root.dataset.theme = dark ? "dark" : "light";
+      button.setAttribute("aria-pressed", String(dark));
+      button.innerHTML = dark
+        ? '<span aria-hidden="true">☀</span> Light mode'
+        : '<span aria-hidden="true">◐</span> Dark mode';
+      localStorage.setItem("theme", theme);
+    }
+
+    setTheme(saved || (systemDark ? "dark" : "light"));
+
+    button.addEventListener("click", () => {
+      setTheme(root.dataset.theme === "dark" ? "light" : "dark");
+    });
+  </script>
+</body>
+</html>
+<!--
+
+Made using Chatgpt 2026
+
+-->
